@@ -1,0 +1,24 @@
+Evolution of Computing :
+    dedicated servers :
+        single application/enterprise
+    virtual machines :
+        hypervisor provides multiple vm's within same machine
+        one application/enterprise uses one vm
+    containers :
+        multiple containers within a single vm
+        better use of space
+    functions :
+        function executes a piece of code put on it
+        single contains multiple functions
+
+6 Advantages of cloud :
+    Trade capital expense for variable expense :
+        pay on demand
+    benefit from massive economics scale :
+        sharing the cost with other customers
+    stop guessing capacity :
+        scale up or down
+    increases agility and speed :
+        launch resource within few clicks
+    stop spending money on running and maintaining data centers
+    go global in minutes 

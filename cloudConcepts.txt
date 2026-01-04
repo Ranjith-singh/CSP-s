@@ -1,0 +1,42 @@
+what is proxy?
+    there are 2 types of proxy: forward proxy and reverse proxy(proxy proxy)
+    forward proxy:
+        present b/w client and the internet
+        sends request on behalf of the client using server's ip
+        hides client from server and internet
+    reverse proxy:
+        stands b/w internet and server
+        hides server from direct exposer to internet/client
+        reverse proxy consist of WAF, loadbalancing, CDN's and autoscaling
+            WAF: is defined using the rules in the Web control list
+            mainly used for prevent DDOS attacks at network layer and
+                add rateLimiter and captcha/image based authentication at application layer
+        the tools that provide these services are cloudflare etc
+    note: vpn/vpc comes into play only when the employee wants to access services
+
+why domain registration and dns is important from user perspective?
+    when you send a request from user to server, the data may be in risk by getting man in the middle attack
+    so when you send a request to that you want to send a data, the server sends you a openBox
+        with publicKey attached and itself store the private key(Asymmetric cryptography)
+        1. so data/accessKey is placed inside openBox and locked using publicKey 
+        2. the attacker only sees the publicKey encrypted box to which he doesn't have the privateKey
+        3. once the accessKey reaches the server it opens the box with it's privateKey
+        4. once they have accessKey they discard the publicKey/privateKey and communicate through accessKey
+            for faster interaction
+    although this method seems foolproof, Their is a major bug called spoofing
+        where the attacker acts as fake client and fake server
+    now we dive into our main concept of domain:
+        once a domain is registered, you provide it with the CA certificate
+            the certificate is not simply provided you need to perform certain tasks like
+            addingFile to DNS and perform other events which only owner of the file can perform
+        the certificates are provided by authorized company's like digicert, microsoft
+        1.users rises a https request where he requests to establish connection
+        2.then server wraps its publicKey with the server side certificate and sends which cannot be decoded by attacker
+        3:when the user receives the response,
+            user's browser/os has all the client side certificates from these authorized certificate providers inBuilt
+            through which they verify the certificate
+    now you might say that the attacker can get his own domain and add certificate
+        1.yes but when he interrupts server message and sends his own publicKey wrapped by his server side certificate
+            cause he won't be having access to server side certificate of og server
+        2.then when the client decodes the certificate you receive a different domain from the og domain
+        3.then the server screams back to you that this site is "not secure"
